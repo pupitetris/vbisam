@@ -589,9 +589,13 @@ isaddindex (const int ihandle, struct keydesc *pskeydesc)
 	if (!(psvbptr->iopenmode & ISEXCLLOCK)) {
 		goto addindexexit;
 	}
-	iserrno = EKEXISTS;
-	ikeynumber = ivbcheckkey (ihandle, pskeydesc, 1, 0, 0);
-	if (ikeynumber == -1) {
+	/* Basic key validity test */
+	if (ivbcheckkey (ihandle, pskeydesc, 0, psvbptr->iminrowlength, 0) == -1) {
+		goto addindexexit;
+	}
+	/* Check whether the key already exists */
+	if (ivbcheckkey (ihandle, pskeydesc, 2, 0, 0) != -1) {
+		iserrno = EKEXISTS;
 		goto addindexexit;
 	}
 	ikeynumber = iaddkeydescriptor (ihandle, pskeydesc);
