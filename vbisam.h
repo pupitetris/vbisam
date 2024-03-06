@@ -178,10 +178,38 @@ struct  dictinfo
 #define EINTERUPT   157 /* Interrupted isam call */
 #define EBADFORMAT  171 /* Locking or NODESIZE change */
 
+/* Highest VBISAM error code + 1 */
+#define VBISAM_ELIMIT 172
+
+/* Activate this when your code is OK with handling
+   error codes that VBISAM never throws */
+#ifdef VBISAM_DEFINE_UNUSED_ERROR_CODES
+#define ENOLOK      115 /* Can't create lock file */
+#define EBADCOLL    117 /* Bad custom collating */
+#define ENOSHMEM    123 /* No shared memory */
+#define ENONFS      125 /* Can't use nfs */
+#define EBADROWID   126 /* Bad rowid */
+#define EUSER       129 /* Too many users */
+#define ENODBS      130 /* No such dbspace */
+#define ENOPARTN    135 /* Partition doesn't exist */
+#define ENOEXTN     136 /* No more extents      */
+#define EOVCHUNK    137 /* Chunk table overflow */
+#define EOVDBS      138 /* Dbspace table ovflow */
+#define EOVLOG      139 /* Logfile table ovflow */
+#define EGBLSECT    140 /* Global section disallowing access - VMS */
+#define EOVPARTN    141 /* Partition table ovfo */
+#define EOVPPAGE    142 /* Overflow partn page  */
+#define EKLOCKED    144 /* Key value locked     */
+#define EDEADDEM    149 /* Turbo demon has died */
+#endif
+
 VB_DLL_EXPIMP extern int    iserrno;    /* Isam error return code */
 VB_DLL_EXPIMP extern int    iserrio;    /* NOT used with VBISAM */
 VB_DLL_EXPIMP extern int    isreclen;   /* Used for varlen tables */
 VB_DLL_EXPIMP extern int    isrecnum;   /* Current row number */
+
+VB_DLL_EXPIMP extern const int   is_nerr;      /* Highest VBISAM error code + 1 */
+VB_DLL_EXPIMP extern const char *is_errlist[]; /* VBISAM error messages */
 
 struct  audhead
 {
