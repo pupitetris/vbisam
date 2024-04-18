@@ -21,7 +21,6 @@
 
 /* Local functions */
 
-/* RXW
 static off_t
 tcountrows (const int ihandle)
 {
@@ -42,7 +41,6 @@ tcountrows (const int ihandle)
 	}
 	return tdatacount;
 }
-*/
 
 /* Global functions */
 
@@ -255,10 +253,9 @@ isindexinfo (const int ihandle, void *pskeydesc, const int ikeynumber)
 	}
 	sdict.di_recsize = psvbptr->imaxrowlength;
 	sdict.di_idxsize = psvbptr->inodesize;
-/* RXW
 	sdict.di_nrecords = tcountrows (ihandle);
-*/
-	sdict.di_nrecords = 0;
+
+//	sdict.di_nrecords = 0;
 	isreclen = psvbptr->iminrowlength;
 	memcpy (pskeydesc, &sdict, sizeof (struct dictinfo));
 
